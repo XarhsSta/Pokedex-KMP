@@ -6,7 +6,7 @@ import data.models.response.PokemonTypesResponse
 data class PokemonInfo(
     val id: Int,
     val name: String,
-    val sprite: PokemonSpriteResponse,
-    val type: List<PokemonTypesResponse>,
+    val sprite: PokemonSprite,
+    val type: List<PokemonType>,
     val stats: List<PokemonStat>
 )

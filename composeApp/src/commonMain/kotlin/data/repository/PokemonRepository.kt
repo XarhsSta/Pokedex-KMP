@@ -1,6 +1,6 @@
 package data.repository
 
-import data.models.response.PokemonInfo
+import data.models.entity.PokemonInfo
 import data.models.response.DetailedPokemonInfoResponse.Companion.toPokemonInfo
 import data.network.PokeApiService
 
