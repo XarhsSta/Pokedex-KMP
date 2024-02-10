@@ -17,6 +17,7 @@ kotlin = "1.9.22"
 ktorClient = "2.3.5"
 coroutines = "1.7.3"
 kermit = "1.0.0"
+kamelImage = "0.9.1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -38,6 +39,7 @@ ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "k
 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktorClient" }
 kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
+kamel-image = { module = "media.kamel:kamel-image", version.ref = "kamelImage" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
