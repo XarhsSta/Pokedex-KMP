@@ -1,22 +1,24 @@
-package data.models
+package data.models.response
 
+import data.models.entity.PokemonStat
+import data.models.entity.PokemonInfo
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import util.getStat
 
 @Serializable
-data class PokemonInfoResponse(
+data class DetailedPokemonInfoResponse(
     val id: Int,
     val name: String,
     @SerialName("sprites")
-    val sprite: PokemonSprite,
+    val sprite: PokemonSpriteResponse,
     @SerialName("types")
-    val type: List<PokemonTypes>,
+    val type: List<PokemonTypesResponse>,
     @SerialName("stats")
     val stats: List<PokemonStatResponse>
 ) {
     companion object {
-        fun PokemonInfoResponse.toPokemonInfo() = PokemonInfo(
+        fun DetailedPokemonInfoResponse.toPokemonInfo() = PokemonInfo(
             id = id,
             name = name,
             sprite = sprite,
@@ -25,11 +27,3 @@ data class PokemonInfoResponse(
         )
     }
 }
-
-data class PokemonInfo(
-    val id: Int,
-    val name: String,
-    val sprite: PokemonSprite,
-    val type: List<PokemonTypes>,
-    val stats: List<PokemonStat>
-)

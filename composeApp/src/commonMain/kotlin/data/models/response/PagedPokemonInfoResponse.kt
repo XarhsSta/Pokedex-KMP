@@ -1,10 +1,10 @@
-package data.models
+package data.models.response
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class PokemonType(
+data class PagedPokemonInfoResponse(
     @SerialName("name")
     val name: String,
     @SerialName("url")

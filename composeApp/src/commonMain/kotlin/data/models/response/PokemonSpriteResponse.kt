@@ -1,10 +1,10 @@
-package data.models
+package data.models.response
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class PokemonSprite(
+data class PokemonSpriteResponse(
     @SerialName("front_default")
     val defaultSprite: String,
     @SerialName("front_shiny")

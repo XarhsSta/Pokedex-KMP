@@ -1,12 +1,12 @@
-package data.models
+package data.models.response
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class PokemonTypes(
+data class PokemonTypesResponse(
     @SerialName("slot")
     val slot: Int,
     @SerialName("type")
-    val type: PokemonType
+    val type: PokemonTypeResponse
 )

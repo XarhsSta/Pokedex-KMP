@@ -1,6 +1,6 @@
 package util
 
-import data.models.Stat
+import data.models.entity.Stat
 
 fun Int.getStat(): Stat {
     return when (this) {

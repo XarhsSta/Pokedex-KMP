@@ -1,7 +1,7 @@
 package data.repository
 
-import data.models.PokemonInfo
-import data.models.PokemonInfoResponse.Companion.toPokemonInfo
+import data.models.response.PokemonInfo
+import data.models.response.DetailedPokemonInfoResponse.Companion.toPokemonInfo
 import data.network.PokeApiService
 
 interface PokemonRepository {

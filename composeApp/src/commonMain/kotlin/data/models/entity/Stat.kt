@@ -1,4 +1,4 @@
-package data.models
+package data.models.entity
 
 enum class Stat(name: String){
     HP("HP"),
