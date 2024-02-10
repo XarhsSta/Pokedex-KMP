@@ -19,4 +19,8 @@ data class PokemonInfo(
             stats = emptyList()
         )
     }
+
+    fun isEmpty() = this == empty()
+
+    fun isNotEmpty() = !isEmpty()
 }

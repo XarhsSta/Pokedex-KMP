@@ -1,11 +1,11 @@
 package data.models.entity
 
-enum class Stat(name: String){
+enum class Stat(val formattedName: String){
     HP("HP"),
-    ATTACK("Attack"),
-    DEFENSE("Defense"),
-    SPECIAL_ATTACK("Special Attack"),
-    SPECIAL_DEFENSE("Special Defense"),
-    SPEED("Speed"),
+    ATTACK("Att"),
+    DEFENSE("Def"),
+    SPECIAL_ATTACK("SpA"),
+    SPECIAL_DEFENSE("SpD"),
+    SPEED("Spd"),
     UNKNOWN("Unknown")
 }
