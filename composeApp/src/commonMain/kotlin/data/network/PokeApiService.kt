@@ -2,7 +2,7 @@ package data.network
 
 import data.ErrorResponse
 import data.Failure
-import data.models.PokemonInfo
+import data.models.PokemonInfoResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -27,7 +27,7 @@ class PokeApiService {
         }
     }
 
-    suspend fun getPokemonById(id: Int): Result<PokemonInfo> {
+    suspend fun getPokemonById(id: Int): Result<PokemonInfoResponse> {
         val response = httpClient.get("pokemon/$id")
         return response.toResult()
     }
