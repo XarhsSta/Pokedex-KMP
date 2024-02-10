@@ -6,5 +6,6 @@ enum class Stat(name: String){
     DEFENSE("Defense"),
     SPECIAL_ATTACK("Special Attack"),
     SPECIAL_DEFENSE("Special Defense"),
-    SPEED("Speed");
+    SPEED("Speed"),
+    UNKNOWN("Unknown")
 }
