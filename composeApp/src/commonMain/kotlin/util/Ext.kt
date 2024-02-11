@@ -1,5 +1,6 @@
 package util
 
+import androidx.compose.ui.graphics.Color
 import data.models.entity.Stat
 
 fun Int.getStat(): Stat {
@@ -16,4 +17,9 @@ fun Int.getStat(): Stat {
 
 fun String.capitalize(): String {
     return this.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
+}
+
+fun String.toColor(): Color {
+    val rgb = this.chunked(2)
+    return Color(red = rgb[0].toInt(16), green = rgb[1].toInt(16), blue = rgb[2].toInt(16))
 }
