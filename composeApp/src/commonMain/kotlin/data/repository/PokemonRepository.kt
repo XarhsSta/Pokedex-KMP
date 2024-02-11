@@ -9,7 +9,6 @@ import data.map
 import data.models.entity.PagedPokemonInfo
 import data.models.entity.PokemonInfo
 import data.models.response.DetailedPokemonInfoResponse.Companion.toPokemonInfo
-import data.models.response.PagedPokemonInfoResponse
 import data.models.response.PagedPokemonInfoResponse.Companion.toPagedPokemonInfo
 import data.network.PokeApiService
 import kotlinx.coroutines.flow.Flow

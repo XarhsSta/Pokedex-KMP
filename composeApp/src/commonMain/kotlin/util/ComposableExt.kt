@@ -105,3 +105,4 @@ fun RowScope.StatBar(baseStat: Int, color: Color) {
         )
     }
 }
+
