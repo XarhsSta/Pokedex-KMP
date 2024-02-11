@@ -1,5 +1,6 @@
 package data.network
 
+import co.touchlab.kermit.Logger
 import data.ErrorResponse
 import data.Failure
 import data.Result
@@ -30,8 +31,8 @@ class PokeApiService {
         }
     }
 
-    suspend fun getPokemon(limit: Int): Result<PagedResponse<PagedPokemonInfoResponse>> {
-        return httpClient.get("pokemon/?limit=$limit").toResult()
+    suspend fun getPokemon(page: Int): Result<PagedResponse<PagedPokemonInfoResponse>> {
+        return httpClient.get("pokemon/?limit=20&offset=${(page - 1) * 20}").toResult()
     }
 
     suspend fun getPokemonById(id: Int): Result<DetailedPokemonInfoResponse> {

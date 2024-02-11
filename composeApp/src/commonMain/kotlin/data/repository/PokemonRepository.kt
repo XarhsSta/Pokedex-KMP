@@ -3,6 +3,7 @@ package data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import co.touchlab.kermit.Logger
 import data.ResultPagingSource
 import data.Result
 import data.map
@@ -15,7 +16,7 @@ import kotlinx.coroutines.flow.Flow
 interface PokemonRepository {
     suspend fun getPokemonById(id: Int): Result<PokemonInfo>
 
-    fun getPokemon(limit: Int, offset: Int): Flow<PagingData<PagedPokemonInfoResponse>>
+    fun getPokemon(): Flow<PagingData<PagedPokemonInfoResponse>>
 }
 
 class DefaultPokemonRepository(
@@ -26,8 +27,8 @@ class DefaultPokemonRepository(
         return pokeApiService.getPokemonById(id).map { it.toPokemonInfo() }
     }
 
-    override fun getPokemon(limit: Int, offset: Int): Flow<PagingData<PagedPokemonInfoResponse>> = Pager(
-        config = PagingConfig(pageSize = limit, initialLoadSize = limit),
+    override fun getPokemon(): Flow<PagingData<PagedPokemonInfoResponse>> = Pager(
+        config = PagingConfig(pageSize = 20, initialLoadSize = 20),
         pagingSourceFactory = {
             ResultPagingSource { page, _ ->
                 pokeApiService.getPokemon(page).map { it.results }

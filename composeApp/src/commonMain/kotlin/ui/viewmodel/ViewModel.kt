@@ -1,15 +1,18 @@
 package ui.viewmodel
 
 import androidx.compose.runtime.mutableStateOf
+import androidx.paging.PagingData
 import co.touchlab.kermit.Logger
 import data.fold
 import data.models.entity.PokemonInfo
+import data.models.response.PagedPokemonInfoResponse
 import data.network.PokeApiService
 import data.repository.DefaultPokemonRepository
 import domain.GetPokemonByIdUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class ViewModel {
@@ -19,10 +22,11 @@ class ViewModel {
     val pokemonRepository = DefaultPokemonRepository(pokeApiService)
     val getPokemonByIdUseCase = GetPokemonByIdUseCase(pokemonRepository)
 
+    val pokemonFlow = getPokemon()
+
     fun getPokemonById(id: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             getPokemonByIdUseCase(GetPokemonByIdUseCase.Params(id))
-//            pokeApiService.getPokemon(1, 0)
                 .fold(
                     onSuccess = {
                         Logger.d(it.toString())
@@ -36,5 +40,9 @@ class ViewModel {
                     }
                 )
         }
+    }
+
+    fun getPokemon(): Flow<PagingData<PagedPokemonInfoResponse>> {
+        return pokemonRepository.getPokemon()
     }
 }
