@@ -35,13 +35,14 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import data.models.response.PagedPokemonInfoResponse
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
+import org.koin.compose.getKoin
 import ui.viewmodel.ViewModel
 import util.capitalize
 
 object HomeView : Screen {
     @Composable
     override fun Content() {
-        val viewModel = ViewModel()
+        val viewModel: ViewModel = getKoin().get()
         val result by rememberUpdatedState(viewModel.pokemonFlow.collectAsLazyPagingItems())
 
         PagingGrid(data = result) {

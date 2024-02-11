@@ -8,6 +8,7 @@ import data.models.entity.PokemonInfo
 import data.models.response.PagedPokemonInfoResponse
 import data.network.PokeApiService
 import data.repository.DefaultPokemonRepository
+import data.repository.PokemonRepository
 import domain.GetPokemonByIdUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,13 +16,11 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
-class ViewModel {
+class ViewModel(
+    val getPokemonByIdUseCase: GetPokemonByIdUseCase,
+    val pokemonRepository: PokemonRepository
+) {
     val pokemon = mutableStateOf(PokemonInfo.empty())
-
-    val pokeApiService = PokeApiService()
-    val pokemonRepository = DefaultPokemonRepository(pokeApiService)
-    val getPokemonByIdUseCase = GetPokemonByIdUseCase(pokemonRepository)
-
     val pokemonFlow = getPokemon()
 
     fun getPokemonById(id: Int) {

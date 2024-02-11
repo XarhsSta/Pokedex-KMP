@@ -27,6 +27,7 @@ import data.models.entity.PokemonInfo
 import data.models.entity.PokemonStat
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
+import org.koin.compose.getKoin
 import ui.viewmodel.ViewModel
 import util.StatBar
 import util.TableCell
@@ -42,7 +43,7 @@ import util.toColor
 class DetailedViewScreen(val index: Int): Screen {
     @Composable
     override fun Content() {
-        val viewModel = ViewModel()
+        val viewModel: ViewModel = getKoin().get()
         val pokemon by remember { viewModel.pokemon }
         viewModel.getPokemonById(index)
         Column(
