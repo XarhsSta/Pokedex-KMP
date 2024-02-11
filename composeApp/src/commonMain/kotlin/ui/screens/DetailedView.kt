@@ -26,7 +26,7 @@ import data.models.entity.PokemonInfo
 import data.models.entity.PokemonStat
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
-import ui.ViewModel
+import ui.viewmodel.ViewModel
 import util.StatBar
 import util.TableCell
 import util.biologyFormat
