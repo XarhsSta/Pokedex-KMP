@@ -1,11 +1,13 @@
 package data.models.entity
 
-enum class Stat(val formattedName: String){
-    HP("HP"),
-    ATTACK("Att"),
-    DEFENSE("Def"),
-    SPECIAL_ATTACK("SpA"),
-    SPECIAL_DEFENSE("SpD"),
-    SPEED("Spd"),
-    UNKNOWN("Unknown")
+import androidx.compose.ui.graphics.Color
+
+enum class Stat(val formattedName: String, val color: Color){
+    HP("HP", Color.Red),
+    ATTACK("Att", Color.DarkGray),
+    DEFENSE("Def", Color.Yellow),
+    SPECIAL_ATTACK("SpA", Color.Blue),
+    SPECIAL_DEFENSE("SpD", Color.Green),
+    SPEED("Spd", Color.LightGray),
+    UNKNOWN("Unknown", Color.Black)
 }
