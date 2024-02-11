@@ -8,7 +8,10 @@ data class PokemonInfo(
     val name: String,
     val sprite: PokemonSprite,
     val type: List<PokemonType>,
-    val stats: List<PokemonStat>
+    val stats: List<PokemonStat>,
+    val abilities: List<PokemonAbility>,
+    val height: Int,
+    val weight: Int
 ) {
     companion object {
         fun empty() = PokemonInfo(
@@ -16,7 +19,10 @@ data class PokemonInfo(
             name = "",
             sprite = PokemonSprite.empty(),
             type = emptyList(),
-            stats = emptyList()
+            stats = emptyList(),
+            abilities = emptyList(),
+            height = 0,
+            weight = 0
         )
     }
 
