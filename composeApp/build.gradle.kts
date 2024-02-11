@@ -48,6 +48,7 @@ kotlin {
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.kermit)
             implementation(libs.kamel.image)
+            implementation(libs.paging.compose.common)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)

@@ -18,6 +18,7 @@ ktorClient = "2.3.5"
 coroutines = "1.7.3"
 kermit = "1.0.0"
 kamelImage = "0.9.1"
+pagingCompose = "3.3.0-alpha02-0.4.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -40,6 +41,7 @@ ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "kto
 kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 kamel-image = { module = "media.kamel:kamel-image", version.ref = "kamelImage" }
+paging-compose-common = { module = "app.cash.paging:paging-compose-common", version.ref = "pagingCompose" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
