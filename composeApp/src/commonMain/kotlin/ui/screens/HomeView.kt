@@ -1,5 +1,6 @@
 package ui.screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,26 +29,37 @@ import app.cash.paging.LoadStateLoading
 import app.cash.paging.LoadStateNotLoading
 import app.cash.paging.compose.LazyPagingItems
 import app.cash.paging.compose.collectAsLazyPagingItems
+import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import data.models.response.PagedPokemonInfoResponse
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import ui.viewmodel.ViewModel
 import util.capitalize
 
-@Composable
-fun HomeView() {
-    val viewModel = ViewModel()
-    val result by rememberUpdatedState(viewModel.pokemonFlow.collectAsLazyPagingItems())
-    PagingGrid(data = result) {
-        PokemonCard(it)
+object HomeView : Screen {
+    @Composable
+    override fun Content() {
+        val viewModel = ViewModel()
+        val result by rememberUpdatedState(viewModel.pokemonFlow.collectAsLazyPagingItems())
+
+        PagingGrid(data = result) {
+            PokemonCard(it)
+        }
     }
 }
 
 @Composable
 fun PokemonCard(pokemon: PagedPokemonInfoResponse) {
+    val navigator = LocalNavigator.currentOrThrow
     Card {
         Column(
-            modifier = Modifier.padding(8.dp),
+            modifier = Modifier
+                .padding(8.dp)
+                .clickable {
+                    navigator.push(DetailedViewScreen(pokemon.getIndex()))
+                },
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             KamelImage(
@@ -70,7 +82,7 @@ fun <T : Any> PagingGrid(
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         modifier = Modifier.fillMaxSize()
-    ){
+    ) {
         items(data.itemCount) { index ->
             val item = data[index]
             item?.let { content(it) }
@@ -91,6 +103,7 @@ fun <T : Any> PagingGrid(
                         }
                     }
                 }
+
                 refresh is LoadStateLoading -> {
                     item {
                         Box(
@@ -101,6 +114,7 @@ fun <T : Any> PagingGrid(
                         }
                     }
                 }
+
                 append is LoadStateLoading -> {
                     item {
 //                        CircularProgressIndicator(
@@ -111,6 +125,7 @@ fun <T : Any> PagingGrid(
 //                        )
                     }
                 }
+
                 refresh is LoadStateError -> {
                     item {
                         ErrorView(
@@ -120,6 +135,7 @@ fun <T : Any> PagingGrid(
                         )
                     }
                 }
+
                 append is LoadStateError -> {
                     item {
                         ErrorItem(

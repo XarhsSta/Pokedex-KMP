@@ -21,6 +21,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.core.screen.Screen
 import data.models.entity.PokemonAbility
 import data.models.entity.PokemonInfo
 import data.models.entity.PokemonStat
@@ -37,39 +38,42 @@ import util.gradientBackground
 import util.toAlphaColor
 import util.toColor
 
-@Composable
-fun DetailedViewScreen() {
-    val viewModel = ViewModel()
-    val pokemon by remember { viewModel.pokemon }
-    viewModel.getPokemonById(35)
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = pokemon.name.capitalize(),
-            modifier = Modifier.padding(vertical = 8.dp)
-        )
-        PokemonImage(pokemon)
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
+
+class DetailedViewScreen(val index: Int): Screen {
+    @Composable
+    override fun Content() {
+        val viewModel = ViewModel()
+        val pokemon by remember { viewModel.pokemon }
+        viewModel.getPokemonById(index)
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            if (pokemon.type.isNotEmpty()) {
-                PokemonAbilities(
-                    pokemon.abilities,
-                    modifier = Modifier.weight(1f),
-                    pokemon.type[0].hexColor
-                )
-                PokemonBiology(
-                    height = pokemon.height,
-                    weight = pokemon.weight,
-                    modifier = Modifier.weight(1f),
-                    pokemon.type[0].hexColor
-                )
+            Text(
+                text = pokemon.name.capitalize(),
+                modifier = Modifier.padding(vertical = 8.dp)
+            )
+            PokemonImage(pokemon)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                if (pokemon.type.isNotEmpty()) {
+                    PokemonAbilities(
+                        pokemon.abilities,
+                        modifier = Modifier.weight(1f),
+                        pokemon.type[0].hexColor
+                    )
+                    PokemonBiology(
+                        height = pokemon.height,
+                        weight = pokemon.weight,
+                        modifier = Modifier.weight(1f),
+                        pokemon.type[0].hexColor
+                    )
+                }
             }
+            PokemonStats(pokemon.stats)
         }
-        PokemonStats(pokemon.stats)
     }
 }
 

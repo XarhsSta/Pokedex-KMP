@@ -49,6 +49,9 @@ kotlin {
             implementation(libs.kermit)
             implementation(libs.kamel.image)
             implementation(libs.paging.compose.common)
+            implementation(libs.voyager.navigator)
+            implementation(libs.voyager.transitions)
+            implementation(libs.voyager.koin)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
