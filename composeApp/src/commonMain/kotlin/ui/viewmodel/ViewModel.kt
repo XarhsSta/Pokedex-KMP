@@ -2,6 +2,7 @@ package ui.viewmodel
 
 import androidx.compose.runtime.mutableStateOf
 import co.touchlab.kermit.Logger
+import data.fold
 import data.models.entity.PokemonInfo
 import data.network.PokeApiService
 import data.repository.DefaultPokemonRepository
@@ -23,14 +24,17 @@ class ViewModel {
             getPokemonByIdUseCase(GetPokemonByIdUseCase.Params(id))
 //            pokeApiService.getPokemon(1, 0)
                 .fold(
-                onSuccess = {
-                    Logger.d(it.toString())
-                    pokemon.value = it
-                },
-                onFailure = {
-                    Logger.w(it.toString())
-                }
-            )
+                    onSuccess = {
+                        Logger.d(it.toString())
+                        pokemon.value = it
+                    },
+                    onError = {
+                        Logger.w(it.toString())
+                    },
+                    onLoading = {
+                        Logger.d("It is Loading")
+                    }
+                )
         }
     }
 }

@@ -1,5 +1,6 @@
 package domain
 
+import data.Result
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
@@ -23,7 +24,7 @@ abstract class UseCase<in P, R>(private val coroutineDispatcher: CoroutineDispat
                 execute(parameters)
             }
         } catch (e: Exception) {
-            Result.failure(e)
+            Result.Error(e)
         }
     }
 

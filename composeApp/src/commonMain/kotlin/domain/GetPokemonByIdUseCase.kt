@@ -1,5 +1,6 @@
 package domain
 
+import data.Result
 import data.models.entity.PokemonInfo
 import data.repository.PokemonRepository
 import kotlinx.coroutines.CoroutineDispatcher
