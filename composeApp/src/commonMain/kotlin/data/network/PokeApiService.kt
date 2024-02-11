@@ -2,8 +2,10 @@ package data.network
 
 import data.ErrorResponse
 import data.Failure
+import data.Result
 import data.models.PagedResponse
 import data.models.response.DetailedPokemonInfoResponse
+import data.models.response.PagedPokemonInfoResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -28,8 +30,8 @@ class PokeApiService {
         }
     }
 
-    suspend fun getPokemon(limit: Int, offset: Int): Result<PagedResponse<DetailedPokemonInfoResponse>> {
-        return httpClient.get("pokemon/?limit=$limit&offset=$offset").toResult()
+    suspend fun getPokemon(limit: Int): Result<PagedResponse<PagedPokemonInfoResponse>> {
+        return httpClient.get("pokemon/?limit=$limit").toResult()
     }
 
     suspend fun getPokemonById(id: Int): Result<DetailedPokemonInfoResponse> {
@@ -46,12 +48,12 @@ private suspend inline fun <reified T> HttpResponse.toResult(): Result<T> {
     return try {
         if (status.isSuccess()) {
             val res: T = call.body()
-            Result.success(res)
+            Result.Success(res)
         } else {
             val res = call.body<ErrorResponse>()
-            Result.failure(Failure.UnknownError)
+            Result.Error(Failure.UnknownError)
         }
     } catch (ex: Throwable) {
-        Result.failure(ex)
+        Result.Error(ex)
     }
 }
