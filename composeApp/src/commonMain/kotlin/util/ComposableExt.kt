@@ -69,6 +69,20 @@ fun RowScope.TableCell(
 }
 
 @Composable
+fun TableCell(
+    text: String,
+    textAlign: TextAlign = TextAlign.Start
+) {
+    Text(
+        text = text,
+        Modifier
+            .border(1.dp, Color.Black)
+            .padding(8.dp),
+        textAlign = textAlign
+    )
+}
+
+@Composable
 fun RowScope.StatBar(baseStat: Int, color: Color) {
     val maxBaseStat = 255
     val widthToFill = baseStat.toDouble() / maxBaseStat
