@@ -1,5 +1,6 @@
 package data.models.response
 
+import data.models.entity.PagedPokemonInfo
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -10,11 +11,10 @@ data class PagedPokemonInfoResponse(
     @SerialName("url")
     val url: String
 ) {
-    fun getIndex(): Int {
-        return url.split("/".toRegex()).dropLast(1).last().toInt()
-    }
-    fun getImageUrl(): String {
-        return "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/" +
-                "pokemon/other/official-artwork/${getIndex()}.png"
+    companion object {
+        fun PagedPokemonInfoResponse.toPagedPokemonInfo() = PagedPokemonInfo(
+            name = name,
+            url = url
+        )
     }
 }

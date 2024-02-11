@@ -32,7 +32,7 @@ import app.cash.paging.compose.collectAsLazyPagingItems
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import data.models.response.PagedPokemonInfoResponse
+import data.models.entity.PagedPokemonInfo
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import org.koin.compose.getKoin
@@ -52,7 +52,7 @@ object HomeView : Screen {
 }
 
 @Composable
-fun PokemonCard(pokemon: PagedPokemonInfoResponse) {
+fun PokemonCard(pokemon: PagedPokemonInfo) {
     val navigator = LocalNavigator.currentOrThrow
     Card {
         Column(

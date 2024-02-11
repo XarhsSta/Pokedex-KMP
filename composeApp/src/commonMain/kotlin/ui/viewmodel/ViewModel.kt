@@ -4,10 +4,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.paging.PagingData
 import co.touchlab.kermit.Logger
 import data.fold
+import data.models.entity.PagedPokemonInfo
 import data.models.entity.PokemonInfo
-import data.models.response.PagedPokemonInfoResponse
-import data.network.PokeApiService
-import data.repository.DefaultPokemonRepository
 import data.repository.PokemonRepository
 import domain.GetPokemonByIdUseCase
 import kotlinx.coroutines.CoroutineScope
@@ -41,7 +39,7 @@ class ViewModel(
         }
     }
 
-    fun getPokemon(): Flow<PagingData<PagedPokemonInfoResponse>> {
+    fun getPokemon(): Flow<PagingData<PagedPokemonInfo>> {
         return pokemonRepository.getPokemon()
     }
 }
