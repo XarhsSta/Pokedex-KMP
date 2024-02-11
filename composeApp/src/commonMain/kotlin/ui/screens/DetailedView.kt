@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -69,7 +70,7 @@ private fun PokemonImage(pokemon: PokemonInfo) {
             KamelImage(
                 resource = asyncPainterResource(data = pokemon.sprite.defaultSprite),
                 contentDescription = "Pokemon Default Sprite",
-                modifier = Modifier.size(256.dp)
+                modifier = Modifier.size(256.dp).background(Color.White, shape = CircleShape)
             )
         }
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
