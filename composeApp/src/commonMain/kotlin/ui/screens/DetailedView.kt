@@ -21,6 +21,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import data.models.entity.PokemonAbility
 import data.models.entity.PokemonInfo
 import data.models.entity.PokemonStat
 import io.kamel.image.KamelImage
@@ -28,15 +29,19 @@ import io.kamel.image.asyncPainterResource
 import ui.ViewModel
 import util.StatBar
 import util.TableCell
+import util.biologyFormat
 import util.capitalize
+import util.capitalizeWords
+import util.dedash
 import util.gradientBackground
+import util.toAlphaColor
 import util.toColor
 
 @Composable
 fun DetailedViewScreen() {
     val viewModel = ViewModel()
     val pokemon by remember { viewModel.pokemon }
-    viewModel.getPokemonById(6)
+    viewModel.getPokemonById(35)
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -46,6 +51,24 @@ fun DetailedViewScreen() {
             modifier = Modifier.padding(vertical = 8.dp)
         )
         PokemonImage(pokemon)
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            if (pokemon.type.isNotEmpty()) {
+                PokemonAbilities(
+                    pokemon.abilities,
+                    modifier = Modifier.weight(1f),
+                    pokemon.type[0].hexColor
+                )
+                PokemonBiology(
+                    height = pokemon.height,
+                    weight = pokemon.weight,
+                    modifier = Modifier.weight(1f),
+                    pokemon.type[0].hexColor
+                )
+            }
+        }
         PokemonStats(pokemon.stats)
     }
 }
@@ -89,6 +112,74 @@ private fun PokemonImage(pokemon: PokemonInfo) {
                 )
             }
         }
+    }
+}
+
+@Composable
+private fun PokemonAbilities(
+    abilities: List<PokemonAbility>,
+    modifier: Modifier,
+    backgroundColor: String
+) {
+    Column(
+        modifier = modifier
+            .padding(8.dp)
+            .clip(RoundedCornerShape(10.dp)),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Row(
+            modifier = Modifier
+                .background(backgroundColor.toColor())
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(text = "Abilities")
+        }
+        Column(
+            modifier = Modifier
+                .background(backgroundColor.toAlphaColor())
+                .fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            abilities.filter { !it.isHidden }.forEach {
+                Text(
+                    text = it.name.dedash().capitalizeWords()
+                )
+            }
+        }
+        if(abilities.filter { it.isHidden }.isNotEmpty()) {
+            Row(
+                modifier = Modifier
+                    .background(backgroundColor.toColor())
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Text("Hidden Abilities")
+            }
+            abilities.filter { it.isHidden }.forEach {
+                Text(
+                    text = it.name.dedash().capitalizeWords(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(backgroundColor.toAlphaColor()),
+                    textAlign = TextAlign.Center
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun PokemonBiology(height: Int, weight: Int, modifier: Modifier, backgroundColor: String) {
+    Column(
+        modifier = modifier
+            .padding(8.dp)
+            .clip(RoundedCornerShape(10.dp))
+            .background(backgroundColor.toAlphaColor()),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = "Height: ${height.biologyFormat()} m")
+        Text(text = "Weight: ${weight.biologyFormat()} kg")
     }
 }
 
