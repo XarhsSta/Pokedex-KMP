@@ -53,7 +53,9 @@ class DetailedViewScreen(val index: Int): Screen {
                         )
                     }
                 }
-                PokemonStats(pokemon.stats)
+                if (pokemon.type.isNotEmpty()) {
+                    PokemonStats(pokemon.stats, pokemon.type[0].hexColor)
+                }
             }
         }
     }

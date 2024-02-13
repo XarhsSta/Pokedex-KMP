@@ -95,15 +95,17 @@ fun RowScope.StatBar(baseStat: Int, color: Color) {
             .fillMaxHeight()
             .weight(1f)
     ) {
-        Spacer(
-            modifier = Modifier
-                .clip(
-                    RoundedCornerShape(10.dp)
-                )
-                .fillMaxWidth(widthToFill.toFloat())
-                .fillMaxHeight()
-                .background(color)
-        )
+        TransparentCardWithElevation {
+            Spacer(
+                modifier = Modifier
+                    .clip(
+                        RoundedCornerShape(10.dp)
+                    )
+                    .fillMaxWidth(widthToFill.toFloat())
+                    .fillMaxHeight()
+                    .background(color)
+            )
+        }
     }
 }
 

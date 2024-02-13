@@ -1,13 +1,11 @@
 package data.models.entity
 
-import androidx.compose.ui.graphics.Color
-
-enum class Stat(val formattedName: String, val color: Color){
-    HP("HP", Color.Red),
-    ATTACK("Att", Color.DarkGray),
-    DEFENSE("Def", Color.Yellow),
-    SPECIAL_ATTACK("SpA", Color.Blue),
-    SPECIAL_DEFENSE("SpD", Color.Green),
-    SPEED("Spd", Color.LightGray),
-    UNKNOWN("Unknown", Color.Black)
+enum class Stat(val formattedName: String, val hexColor: String, val backgroundHexColor: String){
+    HP("HP", "A60000", "FF5959"),
+    ATTACK("Att", "9C531F", "F5AC78"),
+    DEFENSE("Def", "A1871F", "FAE078"),
+    SPECIAL_ATTACK("SpA", "445E9C", "9DB7F5"),
+    SPECIAL_DEFENSE("SpD", "4E8234", "A7DB8D"),
+    SPEED("Spd", "A13959", "FA92B2"),
+    UNKNOWN("Unknown", "000000", "000000")
 }
