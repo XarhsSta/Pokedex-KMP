@@ -36,7 +36,7 @@ class DetailedViewScreen(val index: Int): Screen {
                 text = pokemon.name.capitalize(),
                 modifier = Modifier.padding(vertical = 8.dp)
             )
-            PokemonImage(pokemon)
+            PokemonImage(pokemon.sprite.defaultSprite, pokemon.type)
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically

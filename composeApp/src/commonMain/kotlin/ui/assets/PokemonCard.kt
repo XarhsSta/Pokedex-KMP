@@ -22,19 +22,19 @@ import util.capitalize
 @Composable
 fun PokemonCard(pokemon: PagedPokemonInfo) {
     val navigator = LocalNavigator.currentOrThrow
-    Card {
+    Card(
+        Modifier
+            .clickable {
+                navigator.push(DetailedViewScreen(pokemon.getIndex()))
+            }
+    ) {
         Column(
-            modifier = Modifier
-                .padding(8.dp)
-                .clickable {
-                    navigator.push(DetailedViewScreen(pokemon.getIndex()))
-                },
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            KamelImage(
-                resource = asyncPainterResource(pokemon.getImageUrl()),
-                contentDescription = "Pokemon Sprite",
-                modifier = Modifier.size(96.dp)
+            PokemonImage(
+                spriteUrl = pokemon.getImageUrl(),
+                imageSize = 128.dp,
+                verticalPadding = 8.dp
             )
             Text(pokemon.name.capitalize())
         }

@@ -13,34 +13,40 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import data.models.entity.PokemonInfo
+import data.models.entity.PokemonType
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import util.gradientBackground
 import util.toColor
 
 @Composable
-fun PokemonImage(pokemon: PokemonInfo) {
+fun PokemonImage(
+    spriteUrl: String,
+    types: List<PokemonType> = emptyList(),
+    imageSize: Dp = 256.dp,
+    verticalPadding: Dp = 16.dp
+) {
     Column(
         modifier = Modifier
             .padding(8.dp)
             .clip(RoundedCornerShape(10.dp))
             .fillMaxWidth()
             .gradientBackground(
-                colors = pokemonGradientColors(pokemon),
+                colors = pokemonGradientColors(types),
                 angle = 45f
-            )
-        ,
+            ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if (pokemon.isNotEmpty()) {
+        if(spriteUrl.isNotEmpty()) {
             KamelImage(
-                resource = asyncPainterResource(data = pokemon.sprite.defaultSprite),
+                resource = asyncPainterResource(data = spriteUrl),
                 contentDescription = "Pokemon Default Sprite",
                 modifier = Modifier
-                    .size(256.dp)
-                    .padding(top = 16.dp)
+                    .size(imageSize)
+                    .padding(vertical = verticalPadding)
                     .background(
                         color = Color.White,
                         shape = RoundedCornerShape(10.dp)
@@ -51,7 +57,7 @@ fun PokemonImage(pokemon: PokemonInfo) {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
         ) {
-            pokemon.type.forEach {
+            types.forEach {
                 KamelImage(
                     resource = asyncPainterResource(data = it.imageUrl),
                     contentDescription = "Pokemon Type",
@@ -62,13 +68,16 @@ fun PokemonImage(pokemon: PokemonInfo) {
     }
 }
 
-private fun pokemonGradientColors(pokemon: PokemonInfo): List<Color> {
-    return if (pokemon.type.size == 1) {
-        listOf(
-            pokemon.type[0].hexColor.toColor(),
+private fun pokemonGradientColors(types: List<PokemonType>): List<Color> {
+    return when (types.size)  {
+        1 -> listOf(
+            types[0].hexColor.toColor(),
             Color.White
         )
-    } else {
-        pokemon.type.map { it.hexColor.toColor() }
+        2 -> types.map { it.hexColor.toColor() }
+        else -> listOf(
+            Color.White,
+            Color.Black
+        )
     }
 }
