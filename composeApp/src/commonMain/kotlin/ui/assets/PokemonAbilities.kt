@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,36 +28,12 @@ fun PokemonAbilities(
     modifier: Modifier,
     backgroundColor: String
 ) {
-    Column(
-        modifier = modifier
-            .padding(8.dp)
-            .clip(RoundedCornerShape(10.dp)),
-        horizontalAlignment = Alignment.CenterHorizontally
+    Card(
+        modifier = modifier.padding(8.dp),
+        shape = RoundedCornerShape(10.dp),
+        elevation = 8.dp
     ) {
-        Row(
-            modifier = Modifier
-                .background(backgroundColor.toColor())
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = "Abilities",
-                fontWeight = FontWeight.Bold
-            )
-        }
-        Column(
-            modifier = Modifier
-                .background(backgroundColor.toAlphaColor())
-                .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            abilities.filter { !it.isHidden }.forEach {
-                Text(
-                    text = it.name.dedash().capitalizeWords()
-                )
-            }
-        }
-        if(abilities.filter { it.isHidden }.isNotEmpty()) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Row(
                 modifier = Modifier
                     .background(backgroundColor.toColor())
@@ -64,18 +41,43 @@ fun PokemonAbilities(
                 horizontalArrangement = Arrangement.Center
             ) {
                 Text(
-                    "Hidden Abilities",
+                    text = "Abilities",
                     fontWeight = FontWeight.Bold
                 )
             }
-            abilities.filter { it.isHidden }.forEach {
-                Text(
-                    text = it.name.dedash().capitalizeWords(),
+            Column(
+                modifier = Modifier
+                    .background(backgroundColor.toAlphaColor())
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                abilities.filter { !it.isHidden }.forEach {
+                    Text(
+                        text = it.name.dedash().capitalizeWords()
+                    )
+                }
+            }
+            if (abilities.filter { it.isHidden }.isNotEmpty()) {
+                Row(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .background(backgroundColor.toAlphaColor()),
-                    textAlign = TextAlign.Center
-                )
+                        .background(backgroundColor.toColor())
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        "Hidden Abilities",
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+                abilities.filter { it.isHidden }.forEach {
+                    Text(
+                        text = it.name.dedash().capitalizeWords(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(backgroundColor.toAlphaColor()),
+                        textAlign = TextAlign.Center
+                    )
+                }
             }
         }
     }

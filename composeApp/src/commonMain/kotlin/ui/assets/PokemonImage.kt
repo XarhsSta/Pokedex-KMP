@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,36 +30,40 @@ fun PokemonImage(
     imageSize: Dp = 256.dp,
     verticalPadding: Dp = 16.dp
 ) {
-    Column(
-        modifier = Modifier
-            .padding(8.dp)
-            .clip(RoundedCornerShape(10.dp))
-            .fillMaxWidth()
-            .gradientBackground(
-                colors = pokemonGradientColors(types),
-                angle = 45f
-            ),
-        horizontalAlignment = Alignment.CenterHorizontally
+    Card(
+        modifier = Modifier.padding(8.dp),
+        shape = RoundedCornerShape(10.dp),
+        elevation = 8.dp
     ) {
-        if(spriteUrl.isNotEmpty()) {
-            KamelImage(
-                resource = asyncPainterResource(data = spriteUrl),
-                contentDescription = "Pokemon Default Sprite",
-                modifier = Modifier
-                    .size(imageSize)
-                    .padding(vertical = verticalPadding)
-                    .background(
-                        color = Color.White,
-                        shape = RoundedCornerShape(10.dp)
-                    )
-            )
-        }
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .gradientBackground(
+                    colors = pokemonGradientColors(types),
+                    angle = 45f
+                ),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            types.forEach {
-                PokemonTypeChip(it)
+            if (spriteUrl.isNotEmpty()) {
+                KamelImage(
+                    resource = asyncPainterResource(data = spriteUrl),
+                    contentDescription = "Pokemon Default Sprite",
+                    modifier = Modifier
+                        .size(imageSize)
+                        .padding(vertical = verticalPadding)
+                        .background(
+                            color = Color.White,
+                            shape = RoundedCornerShape(10.dp)
+                        )
+                )
+            }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                types.forEach {
+                    PokemonTypeChip(it)
+                }
             }
         }
     }

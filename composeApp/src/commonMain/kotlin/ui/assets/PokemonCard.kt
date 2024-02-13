@@ -32,7 +32,6 @@ fun PokemonCard(pokemon: PagedPokemonInfo) {
         elevation = 8.dp
     ) {
         Column(
-            modifier = Modifier.padding(8.dp).clip(RoundedCornerShape(10.dp)).background("eeeeee".toColor()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             PokemonImage(

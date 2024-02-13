@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,22 +20,26 @@ import util.toColor
 
 @Composable
 fun PokemonBiology(height: Int, weight: Int, modifier: Modifier, backgroundColor: String) {
-    Column(
-        modifier = modifier
-            .padding(8.dp)
-            .clip(RoundedCornerShape(10.dp))
-            .background(backgroundColor.toAlphaColor()),
-        horizontalAlignment = Alignment.CenterHorizontally
+    Card(
+        modifier = modifier.padding(8.dp),
+        shape = RoundedCornerShape(10.dp),
+        elevation = 8.dp
     ) {
-        Text(
-            text = "Biology Stats",
-            fontWeight = FontWeight.Bold,
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .background(backgroundColor.toColor()),
-            textAlign = TextAlign.Center
-        )
-        Text(text = "Height: ${height.biologyFormat()} m")
-        Text(text = "Weight: ${weight.biologyFormat()} kg")
+                .background(backgroundColor.toAlphaColor()),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = "Biology Stats",
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(backgroundColor.toColor()),
+                textAlign = TextAlign.Center
+            )
+            Text(text = "Height: ${height.biologyFormat()} m")
+            Text(text = "Weight: ${weight.biologyFormat()} kg")
+        }
     }
 }
