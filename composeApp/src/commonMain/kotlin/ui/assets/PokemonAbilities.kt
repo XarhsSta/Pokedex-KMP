@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import data.models.entity.PokemonAbility
@@ -38,7 +39,10 @@ fun PokemonAbilities(
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
         ) {
-            Text(text = "Abilities")
+            Text(
+                text = "Abilities",
+                fontWeight = FontWeight.Bold
+            )
         }
         Column(
             modifier = Modifier
@@ -59,7 +63,10 @@ fun PokemonAbilities(
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
-                Text("Hidden Abilities")
+                Text(
+                    "Hidden Abilities",
+                    fontWeight = FontWeight.Bold
+                )
             }
             abilities.filter { it.isHidden }.forEach {
                 Text(

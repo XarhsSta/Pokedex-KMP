@@ -116,6 +116,7 @@ fun TransparentCardWithElevation(
 ) {
     Card(
         modifier = modifier,
+        shape = RoundedCornerShape(10.dp),
         backgroundColor = Color(0,0,0,0),
         elevation = 8.dp,
         content = content
