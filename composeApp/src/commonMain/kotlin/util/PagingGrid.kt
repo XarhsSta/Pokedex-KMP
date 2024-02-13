@@ -33,7 +33,7 @@ fun <T : Any> PagingGrid(
         columns = GridCells.Fixed(2),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize().padding(8.dp)
     ) {
         items(data.itemCount) { index ->
             val item = data[index]
