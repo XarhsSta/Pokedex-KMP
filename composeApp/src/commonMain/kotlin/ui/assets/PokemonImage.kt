@@ -58,11 +58,7 @@ fun PokemonImage(
             horizontalArrangement = Arrangement.Center
         ) {
             types.forEach {
-                KamelImage(
-                    resource = asyncPainterResource(data = it.imageUrl),
-                    contentDescription = "Pokemon Type",
-                    modifier = Modifier.padding(horizontal = 8.dp).size(96.dp)
-                )
+                PokemonTypeChip(it)
             }
         }
     }

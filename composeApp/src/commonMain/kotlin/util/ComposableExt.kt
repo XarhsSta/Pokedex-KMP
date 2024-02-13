@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -106,3 +107,15 @@ fun RowScope.StatBar(baseStat: Int, color: Color) {
     }
 }
 
+@Composable
+fun TransparentCardWithElevation(
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit
+) {
+    Card(
+        modifier = modifier,
+        backgroundColor = Color(0,0,0,0),
+        elevation = 8.dp,
+        content = content
+    )
+}
