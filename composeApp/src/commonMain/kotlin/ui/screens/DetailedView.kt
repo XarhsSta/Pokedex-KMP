@@ -25,7 +25,7 @@ import ui.viewmodel.ViewModel
 import util.Resource
 import util.capitalize
 
-class DetailedViewScreen(val index: Int): Screen {
+class DetailedViewScreen(val index: Int) : Screen {
     @Composable
     override fun Content() {
         val viewModel: ViewModel = getKoin().get<ViewModel>().also {
@@ -52,30 +52,28 @@ class DetailedViewScreen(val index: Int): Screen {
                                 modifier = Modifier.fillMaxWidth(),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                if (type.isNotEmpty()) {
-                                    PokemonAbilities(
-                                        abilities,
-                                        modifier = Modifier.weight(1f),
-                                        type[0].hexColor
-                                    )
-                                    PokemonBiology(
-                                        height = height,
-                                        weight = weight,
-                                        modifier = Modifier.weight(1f),
-                                        type[0].hexColor
-                                    )
-                                }
+                                PokemonAbilities(
+                                    abilities,
+                                    modifier = Modifier.weight(1f),
+                                    type[0].hexColor
+                                )
+                                PokemonBiology(
+                                    height = height,
+                                    weight = weight,
+                                    modifier = Modifier.weight(1f),
+                                    type[0].hexColor
+                                )
                             }
-                            if (type.isNotEmpty()) {
-                                PokemonStats(stats, type[0].hexColor)
-                            }
+                            PokemonStats(stats, type[0].hexColor)
                         }
                     }
                 }
             }
+
             is Resource.Error -> {
                 Logger.e((this as Resource.Error).message)
             }
+
             is Resource.Loading -> {
                 Column(
                     modifier = Modifier.fillMaxSize(),
@@ -85,6 +83,7 @@ class DetailedViewScreen(val index: Int): Screen {
                     CircularProgressIndicator()
                 }
             }
+
             is Resource.Empty -> {
                 Logger.d("Empty data")
             }
