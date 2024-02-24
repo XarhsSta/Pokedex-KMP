@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -62,19 +63,19 @@ fun <T : Any> PagingGrid(
                             modifier = Modifier.fillMaxSize().padding(20.dp),
                             contentAlignment = Alignment.Center
                         ) {
-//                            CircularProgressIndicator()
+                            CircularProgressIndicator()
                         }
                     }
                 }
 
                 append is LoadStateLoading -> {
                     item {
-//                        CircularProgressIndicator(
-//                            color = Color.Red,
-//                            modifier = Modifier.fillMaxWidth(1f)
-//                                .padding(20.dp)
-//                                .wrapContentWidth(Alignment.CenterHorizontally)
-//                        )
+                        CircularProgressIndicator(
+                            color = Color.Red,
+                            modifier = Modifier.fillMaxWidth(1f)
+                                .padding(20.dp)
+                                .wrapContentWidth(Alignment.CenterHorizontally)
+                        )
                     }
                 }
 
