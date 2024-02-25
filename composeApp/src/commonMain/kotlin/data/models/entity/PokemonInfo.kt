@@ -8,7 +8,8 @@ data class PokemonInfo(
     val stats: List<PokemonStat>,
     val abilities: List<PokemonAbility>,
     val height: Int,
-    val weight: Int
+    val weight: Int,
+    val moves: List<PokemonMove>
 ): BaseModel {
     companion object {
         fun empty() = PokemonInfo(
@@ -19,7 +20,8 @@ data class PokemonInfo(
             stats = emptyList(),
             abilities = emptyList(),
             height = 0,
-            weight = 0
+            weight = 0,
+            moves = emptyList()
         )
     }
 
