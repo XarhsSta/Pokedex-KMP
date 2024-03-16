@@ -5,6 +5,7 @@ import data.Failure
 import data.Result
 import data.models.PagedResponse
 import data.models.response.DetailedPokemonInfoResponse
+import data.models.response.DetailedPokemonMoveResponse
 import data.models.response.PagedPokemonInfoResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -24,6 +25,10 @@ class PokeApiService(val httpClient: HttpClient) {
 
     suspend fun getPokemonByName(name: String): Result<DetailedPokemonInfoResponse> {
         return httpClient.get("pokemon/$name").toResult()
+    }
+
+    suspend fun getMoveById(id: Int): Result<DetailedPokemonMoveResponse> {
+        return httpClient.get("move/$id").toResult()
     }
 
 }

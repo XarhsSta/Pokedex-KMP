@@ -49,3 +49,7 @@ fun String.dedash(): String {
 fun String.capitalizeWords(): String {
     return this.split(" ").map { it.capitalize() }.joinToString(" ")
 }
+
+fun getIndex(url: String): Int {
+    return url.split("/".toRegex()).dropLast(1).last().toInt()
+}

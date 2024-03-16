@@ -1,5 +1,7 @@
 package data.models.entity
 
+import util.getIndex
+
 data class PagedPokemonInfo(
     val name: String,
     val url: String
@@ -10,12 +12,9 @@ data class PagedPokemonInfo(
             url = ""
         )
     }
-    fun getIndex(): Int {
-        return url.split("/".toRegex()).dropLast(1).last().toInt()
-    }
     fun getImageUrl(): String {
         return "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/" +
-                "pokemon/other/official-artwork/${getIndex()}.png"
+                "pokemon/other/official-artwork/${getIndex(url)}.png"
     }
 
     override fun isEmpty(): Boolean = this == empty()

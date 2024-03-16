@@ -18,6 +18,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import data.models.entity.PagedPokemonInfo
 import ui.screens.DetailedViewScreen
 import util.capitalize
+import util.getIndex
 import util.toColor
 
 
@@ -26,7 +27,7 @@ fun PokemonCard(pokemon: PagedPokemonInfo) {
     val navigator = LocalNavigator.currentOrThrow
     Card(
         modifier = Modifier.clickable {
-                navigator.push(DetailedViewScreen(pokemon.getIndex()))
+                navigator.push(DetailedViewScreen(getIndex(pokemon.url)))
             },
         shape = RoundedCornerShape(10.dp),
         elevation = 8.dp
