@@ -8,13 +8,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.screen.Screen
 import co.touchlab.kermit.Logger
-import data.models.entity.PokemonInfo
 import org.koin.compose.getKoin
 import ui.assets.PokedexTopAppBar
 import ui.assets.PokemonAbilities
@@ -22,59 +21,16 @@ import ui.assets.PokemonBiology
 import ui.assets.PokemonImage
 import ui.assets.PokemonStats
 import ui.viewmodel.ViewModel
-import util.Resource
+import util.RequestState
 import util.capitalize
 
 class DetailedViewScreen(val index: Int) : Screen {
     @Composable
     override fun Content() {
-        val viewModel: ViewModel = getKoin().get<ViewModel>().also {
-            it.getPokemonById(index)
-        }
-        val pokemon by remember { viewModel.pokemon }
-        when (pokemon) {
-            is Resource.Success -> {
-                with((pokemon as Resource.Success<PokemonInfo>).data) {
-                    Scaffold(
-                        topBar = {
-                            PokedexTopAppBar(
-                                this@DetailedViewScreen,
-                                name.capitalize()
-                            )
-                        }
-                    ) {
-                        Column(
-                            modifier = Modifier.fillMaxSize(),
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            PokemonImage(sprite.defaultSprite, type)
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                PokemonAbilities(
-                                    abilities,
-                                    modifier = Modifier.weight(1f),
-                                    type[0].hexColor
-                                )
-                                PokemonBiology(
-                                    height = height,
-                                    weight = weight,
-                                    modifier = Modifier.weight(1f),
-                                    type[0].hexColor
-                                )
-                            }
-                            PokemonStats(stats, type[0].hexColor)
-                        }
-                    }
-                }
-            }
-
-            is Resource.Error -> {
-                Logger.e((this as Resource.Error).message)
-            }
-
-            is Resource.Loading -> {
+        val viewModel: ViewModel = getKoin().get<ViewModel>()
+        val pokemon by viewModel.getPokemonById(index).collectAsState(initial = RequestState.Idle)
+        pokemon.DisplayResult(
+            onLoading = {
                 Column(
                     modifier = Modifier.fillMaxSize(),
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -82,11 +38,46 @@ class DetailedViewScreen(val index: Int) : Screen {
                 ) {
                     CircularProgressIndicator()
                 }
+            },
+            onSuccess = {
+                pokemon.getSuccessDataOrNull()?.let { pokemon ->
+                    Scaffold(
+                        topBar = {
+                            PokedexTopAppBar(
+                                this@DetailedViewScreen,
+                                pokemon.name.capitalize()
+                            )
+                        }
+                    ) {
+                        Column(
+                            modifier = Modifier.fillMaxSize(),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            PokemonImage(pokemon.sprite.defaultSprite, pokemon.type)
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                PokemonAbilities(
+                                    pokemon.abilities,
+                                    modifier = Modifier.weight(1f),
+                                    pokemon.type[0].hexColor
+                                )
+                                PokemonBiology(
+                                    height = pokemon.height,
+                                    weight = pokemon.weight,
+                                    modifier = Modifier.weight(1f),
+                                    pokemon.type[0].hexColor
+                                )
+                            }
+                            PokemonStats(pokemon.stats, pokemon.type[0].hexColor)
+                        }
+                    }
+                }
+            },
+            onError = {
+                Logger.e(pokemon.getErrorMessageOrNull() ?: "Can't find error message")
             }
-
-            is Resource.Empty -> {
-                Logger.d("Empty data")
-            }
-        }
+        )
     }
 }
